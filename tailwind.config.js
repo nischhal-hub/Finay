@@ -20,7 +20,11 @@ export default {
       'accent' : 'rgba(255, 130, 0, 1)',
       'secondary' : '#FFF2E5',
       'formInput' : '#2C2C3D',
-      'searchInput' : '#515151'
+      'searchInput' : 'rgb(36,37,43)',
+      'searchInputBorder' : 'rgba(81, 81, 81, 1)',
+      'borderColor' : 'rgba(69, 67, 67, 0.23)',
+      'sidebarBackground' : 'rgba(21, 21, 24, 1)',
+      'sidebarBackground2' : 'rgba(45, 43, 56, 0)'
 
     }
   },
