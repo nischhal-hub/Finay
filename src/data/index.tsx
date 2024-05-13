@@ -7,10 +7,11 @@ import { MdOutlineStorefront } from "react-icons/md";
 import { MdOutlineVideoLibrary } from "react-icons/md";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { MdOutlinePerson } from "react-icons/md";
-import { FaDiscord } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { AiOutlineSetting } from "react-icons/ai";
 import { LiaLinkSolid } from 'react-icons/lia';
+import { FaLinkedin, FaTelegram,FaDiscord,FaInstagram,FaTwitter } from "react-icons/fa";
+
 
 type SidebarLink = {
     label: string;
@@ -26,7 +27,7 @@ type SidebarSection = {
 type SidebarLinks = SidebarSection[];
 
 
-const sidebarLinks: SidebarLinks = [
+export const sidebarLinks: SidebarLinks = [
     {
         page:'page-urls',
         links : [
@@ -50,4 +51,19 @@ const sidebarLinks: SidebarLinks = [
     }
 ]
 
-export default sidebarLinks;
+export const footerURLs = [
+    {label:'Home', url:'/'},
+    {label:'Community', url:'/'},
+    {label:'Explore', url:'/'},
+    {label:'Contact', url:'/'},
+    {label:'Terms', url:'/'},
+    {label:'Privacy', url:'/'},
+]
+
+export const socialURLs = [
+    {icon:<FaLinkedin/>, url:'/'},
+    {icon:<FaTelegram/>, url:'/'},
+    {icon:<FaDiscord/>, url:'/'},
+    {icon:<FaInstagram/>, url:'/'},
+    {icon:<FaTwitter/>, url:'/'},
+]

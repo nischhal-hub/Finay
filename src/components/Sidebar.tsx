@@ -11,7 +11,7 @@ import { FaDiscord } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { AiOutlineSetting } from "react-icons/ai";
 
-import sidebarLinks from '../data/index'
+import {sidebarLinks} from '../data/index'
 
 const Sidebar = () => {
     return (
