@@ -44,8 +44,8 @@ const sidebarLinks: SidebarLinks = [
             {label:"Calendar",icon:<FaRegCalendarAlt/>,url:'/' },
             {label:"Profile",icon:<MdOutlinePerson/>,url:'/' },
             {label:"Settings",icon:<AiOutlineSetting/>,url:'/' },
-            {label:"Discord",icon:<FaDiscord />,url:'/' },
-            {label:"Log out",icon:<MdLogout />,url:'/' },
+            {label:"Discord",icon:<FaDiscord/>,url:'/' },
+            {label:"Log out",icon:<MdLogout/>,url:'/' },
         ]
     }
 ]
