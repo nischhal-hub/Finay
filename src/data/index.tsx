@@ -40,12 +40,12 @@ export const sidebarLinks: SidebarLinks = [
     {
         page:'personal',
         links : [
-            {label:"Saved",icon:<MdOutlineVideoLibrary/>,url:'/' },
-            {label:"Calendar",icon:<FaRegCalendarAlt/>,url:'/' },
-            {label:"Profile",icon:<MdOutlinePerson/>,url:'/' },
-            {label:"Settings",icon:<AiOutlineSetting/>,url:'/' },
-            {label:"Discord",icon:<FaDiscord/>,url:'/' },
-            {label:"Log out",icon:<MdLogout/>,url:'/' },
+            {label:"Saved",icon:<MdOutlineVideoLibrary/>,url:'/saved' },
+            {label:"Calendar",icon:<FaRegCalendarAlt/>,url:'/calendar' },
+            {label:"Profile",icon:<MdOutlinePerson/>,url:'/profile' },
+            {label:"Settings",icon:<AiOutlineSetting/>,url:'/settings' },
+            {label:"Discord",icon:<FaDiscord/>,url:'/discord' },
+            {label:"Log out",icon:<MdLogout/>,url:'/logout' },
         ]
     }
 ]

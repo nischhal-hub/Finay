@@ -25,7 +25,8 @@ export default {
       'borderColor' : 'rgba(69, 67, 67, 0.23)',
       'sidebarBackground' : 'rgba(21, 21, 24, 1)',
       'sidebarBackground2' : 'rgba(45, 43, 56, 0)',
-      'black':"#000000"
+      'black':"#000000",
+      'verified':"#EA3B56"
 
     }
   },

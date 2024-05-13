@@ -34,7 +34,13 @@ const Sidebar = () => {
                     <ul className='m-6'>
                         {sidebarLinks[1].links.map((item, i) => (
                             <li key={i} className=' text-textSecondary-200 cursor-pointer hover:text-accent transition first-of-type:pb-2 py-2 last-of-type:pt-2 last-of-type:pb-8'>
-                                <NavLink to={item.url} className='flex'>
+                                <NavLink to={item.url} className={({ isActive }) =>
+                                    [
+                                        'flex',
+                                        'hover:text-accent',
+                                        'transition',
+                                        isActive ? "text-accent" : "text-textSecondary-200",
+                                    ].join(" ")}>
                                     <span className='text-2xl'>{item.icon}</span>
                                     <span className='text-base ml-4'>{item.label}</span>
                                 </NavLink>
