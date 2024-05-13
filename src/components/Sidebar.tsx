@@ -16,8 +16,8 @@ import sidebarLinks from '../data/index'
 const Sidebar = () => {
     return (
         <>
-            <div className='h-40 w-40 bg-accent rounded-full absolute blur-3xl opacity-20 bottom-10 -left-10'></div>
-            <div className='sidebar w-1/6 h-auto bg-gradient-to-t from-sidebarBackground2 to-sidebarBackground'>
+            <div className='h-40 w-1/6 bg-accent rounded-full absolute blur-3xl opacity-20 bottom-10 -left-10'></div>
+            <div className='sidebar absolute left-0 w-52 h-auto bg-gradient-to-t from-sidebarBackground2 to-sidebarBackground'>
                 <div className='font-urbanist'>
                     <ul className='mx-6 border-b-[1px] border-searchInputBorder'>
                         {sidebarLinks[0].links.map((item, i) => (<li key={i} className='flex text-textSecondary-200 cursor-pointer hover:text-accent transition py-2 first-of-type:pt-6 pb-2 last-of-type:pb-6'><span className='text-2xl'>{item.icon}</span><span className='text-base ml-4'>{item.label}</span></li>))}
