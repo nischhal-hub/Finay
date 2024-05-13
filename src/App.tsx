@@ -1,18 +1,26 @@
-import { useState } from 'react'
 import './App.css'
-import Navbar from './components/Navbar'
-import Sidebar from './components/Sidebar'
+
 import Explore from './components/Explore'
-import Footer from './components/Footer'
+import Home from './components/Home'
+import Profile from './components/Profile'
+import SharedLayout from './components/SharedLayout'
+import { Routes,Route,Navigate } from 'react-router-dom'
 function App() {
 
 
   return (
     <>
-    <Navbar />
+    <Routes>
+      <Route path='/' element={<SharedLayout />}>
+          <Route path='/' element={<Home/>}/>
+          <Route path='/explore' element={<Explore/>}/>
+          <Route path='/profile' element={<Profile/>}/>
+      </Route>
+    </Routes>
+    {/* <Navbar />
     <Sidebar />
     <Explore />
-    <Footer />
+    <Footer /> */}
     </>
   )
 }

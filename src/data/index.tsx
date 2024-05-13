@@ -9,7 +9,6 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import { MdOutlinePerson } from "react-icons/md";
 import { MdLogout } from "react-icons/md";
 import { AiOutlineSetting } from "react-icons/ai";
-import { LiaLinkSolid } from 'react-icons/lia';
 import { FaLinkedin, FaTelegram,FaDiscord,FaInstagram,FaTwitter } from "react-icons/fa";
 
 
@@ -33,7 +32,7 @@ export const sidebarLinks: SidebarLinks = [
         links : [
             {label:"Home",icon:<TiHome />,url:'/' },
             {label:"Community",icon:<IoPeopleOutline/>,url:'/' },
-            {label:"Explore",icon:<MdOutlineExplore/>,url:'/' },
+            {label:"Explore",icon:<MdOutlineExplore/>,url:'/explore' },
             {label:"My store",icon:<MdOutlineStorefront/>,url:'/' },
             {label:"Library",icon:<MdOutlineLibraryMusic/>,url:'/' },
         ]
