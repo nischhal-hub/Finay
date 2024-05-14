@@ -1,4 +1,4 @@
-import './App.css'
+import './App.css'gi
 
 import Explore from './components/Explore'
 import Home from './components/Home'

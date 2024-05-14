@@ -1,5 +1,5 @@
 import React from 'react'
-import { IoIosArrowBack } from 'react-icons/io'
+import { IoIosArrowBack } from 'react-icons/io';
 import { CiSearch } from "react-icons/ci";
 import Card from './Card';
 const Explore = () => {

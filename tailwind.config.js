@@ -14,6 +14,8 @@ export default {
     },
     colors:{
       'background' : '#181A20',
+      'transparentBackground' : 'rgba(0, 0, 0, 0.4)',
+      'transparentGlass' : 'rgba(0,0,0,0.31)',
       'textLight' : '#FFFFFF',
       'textSecondary-200' : 'rgba(255, 255, 255, 0.65)',
       'textSecondary-100' : 'rgba(255, 255, 255, 0.6)',
