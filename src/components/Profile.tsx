@@ -1,9 +1,21 @@
-import React from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import { IoIosArrowBack } from 'react-icons/io'
 import { MdVerified } from "react-icons/md";
 import { BiSolidImageAdd } from "react-icons/bi";
 
 const Profile = () => {
+    const [values, setValues] = useState({
+        "price": "",
+        "noofrelease": "",
+        "eventname": "",
+        "eventtype": "",
+        "eventdate": "",
+        "description": ""
+    })
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setValues({ ...values, [e.target.name]: e.target.value })
+        console.log(values)
+    }
     return (
         <div className='flex w-full'>
             <div className='w-1/6'></div>
@@ -35,11 +47,11 @@ const Profile = () => {
                                 <div className='pricing-input flex mt-4'>
                                     <div className='flex flex-col w-1/2'>
                                         <p className='font-workSans font-normal text-xs text-textSecondary-100 my-1'>Choose Pricing</p>
-                                        <input type="text" name='price' className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' placeholder='45.99' />
+                                        <input type="text" name='price' className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' placeholder='$45.99' onChange={(e) => handleChange(e)} />
                                     </div>
                                     <div className='flex flex-col ml-4 w-1/2'>
                                         <p className='font-workSans font-normal text-xs text-textSecondary-100 my-1'>How many to release?</p>
-                                        <input type="text" name='noofrelease' className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' placeholder='@yukta.sh' />
+                                        <input type="text" name='noofrelease' className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' placeholder='@yukta.sh' onChange={(e) => handleChange(e)} />
                                     </div>
                                 </div>
                             </div>
@@ -48,9 +60,9 @@ const Profile = () => {
                                 <p className='font-workSans font-normal text-xs text-textLight mt-3'>Upload thumbnail.</p>
                                 <p className='font-workSans font-normal text-xs text-textLight'>PNG,GIF,WEBP Max=30MB.</p>
                                 <div className='w-[60%] relative'>
-                                    <BiSolidImageAdd className='absolute top-0 left-0 bottom-0 right-0 m-auto w-full text-2xl text-textSecondary-200'/>
+                                    <BiSolidImageAdd className='absolute top-0 left-0 bottom-0 right-0 m-auto w-full text-2xl text-textSecondary-200' />
                                     <button className='bg-accent absolute top-7 right-4 font-workSans font-normal text-base rounded-[50px] px-2'>Upload</button>
-                                    <input type="photo" className='w-full h-52 mt-3 rounded-md bg-formInput ' />
+                                    <input type="photo" name='photo' className='w-full h-52 mt-3 rounded-md bg-formInput ' />
                                 </div>
                             </div>
                             <div className="event details mt-6">
@@ -58,22 +70,29 @@ const Profile = () => {
                                 <div className='pricing-input flex mt-4'>
                                     <div className='flex flex-col w-1/2'>
                                         <p className='font-workSans font-normal text-xs text-textSecondary-100 my-1'>Event name</p>
-                                        <input type="text" name='price' className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' placeholder='Album name' />
+                                        <input type="text" name='eventname' className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' placeholder='Album name' onChange={(e) => handleChange(e)} />
                                     </div>
                                     <div className='flex flex-col ml-4 w-1/2'>
                                         <p className='font-workSans font-normal text-xs text-textSecondary-100 my-1'>Event type</p>
-                                        <input type="text" name='noofrelease' className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' placeholder='Jazz' />
+                                        {/* <input type="text" name='eventtype' className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' placeholder='Jazz' /> */}
+                                        <select name="eventtype" className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm'>
+                                            <option value="" disabled>Choose event type</option>
+                                            <option value="jazz">Jazz</option>
+                                            <option value="pop">Pop</option>
+                                            <option value="rock">Rock</option>
+                                            <option value="indie">Indie</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div className='flex flex-col  w-full'>
-                                        <p className='font-workSans font-normal text-xs text-textSecondary-100 my-1'>Event date</p>
-                                        <input type="date" className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm'/>
-                                    </div>
-                                    <div className='flex flex-col w-full'>
-                                        <p className='font-workSans font-normal text-xs text-textSecondary-100 my-1'>Description</p>
-                                        <textarea name="" id="" cols="30" rows="10" className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm resize-y' placeholder='Event description'>
-                                        </textarea>
-                                    </div>
+                                    <p className='font-workSans font-normal text-xs text-textSecondary-100 my-1'>Event date</p>
+                                    <input type="date" name='eventdate' className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' />
+                                </div>
+                                <div className='flex flex-col w-full'>
+                                    <p className='font-workSans font-normal text-xs text-textSecondary-100 my-1'>Description</p>
+                                    <textarea name="description" id="" cols="30" rows="10" className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm resize-y' placeholder='Event description'>
+                                    </textarea>
+                                </div>
                             </div>
                             <div className="event-links mt-6">
                                 <p className='text-textLight text-2xl font-semibold font-urbanist'>Pricing Details</p>
