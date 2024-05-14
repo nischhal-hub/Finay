@@ -10,9 +10,11 @@ const Profile = () => {
         "eventname": "",
         "eventtype": "",
         "eventdate": "",
-        "description": ""
+        "description": "",
+        "vrstreaminglink":"",
+        "streaminglink":""
     })
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         setValues({ ...values, [e.target.name]: e.target.value })
         console.log(values)
     }
@@ -47,11 +49,11 @@ const Profile = () => {
                                 <div className='pricing-input flex mt-4'>
                                     <div className='flex flex-col w-1/2'>
                                         <p className='font-workSans font-normal text-xs text-textSecondary-100 my-1'>Choose Pricing</p>
-                                        <input type="text" name='price' className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' placeholder='$45.99' onChange={(e) => handleChange(e)} />
+                                        <input type="number" pattern='\$\d+(?:\.\d{1,2})?' name='price' className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm required:border-accent required:border-[1px]' placeholder='$45.99' onChange={(e) => handleChange(e)} required/>
                                     </div>
                                     <div className='flex flex-col ml-4 w-1/2'>
                                         <p className='font-workSans font-normal text-xs text-textSecondary-100 my-1'>How many to release?</p>
-                                        <input type="text" name='noofrelease' className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' placeholder='@yukta.sh' onChange={(e) => handleChange(e)} />
+                                        <input type="number" name='noofrelease' className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' placeholder='@yukta.sh' onChange={(e) => handleChange(e)} pattern='\d+' required/>
                                     </div>
                                 </div>
                             </div>
@@ -70,12 +72,12 @@ const Profile = () => {
                                 <div className='pricing-input flex mt-4'>
                                     <div className='flex flex-col w-1/2'>
                                         <p className='font-workSans font-normal text-xs text-textSecondary-100 my-1'>Event name</p>
-                                        <input type="text" name='eventname' className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' placeholder='Album name' onChange={(e) => handleChange(e)} />
+                                        <input type="text" name='eventname' className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' placeholder='Album name' onChange={(e) => handleChange(e)} pattern='[A-Za-z0-9\s\-_]+' required/>
                                     </div>
                                     <div className='flex flex-col ml-4 w-1/2'>
                                         <p className='font-workSans font-normal text-xs text-textSecondary-100 my-1'>Event type</p>
                                         {/* <input type="text" name='eventtype' className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' placeholder='Jazz' /> */}
-                                        <select name="eventtype" className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm'>
+                                        <select name="eventtype" className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' onChange={(e)=>handleChange(e)} required>
                                             <option value="" disabled>Choose event type</option>
                                             <option value="jazz">Jazz</option>
                                             <option value="pop">Pop</option>
@@ -86,24 +88,24 @@ const Profile = () => {
                                 </div>
                                 <div className='flex flex-col  w-full'>
                                     <p className='font-workSans font-normal text-xs text-textSecondary-100 my-1'>Event date</p>
-                                    <input type="date" name='eventdate' className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' />
+                                    <input type="date" name='eventdate' className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' onChange={(e)=>handleChange(e)} required/>
                                 </div>
                                 <div className='flex flex-col w-full'>
                                     <p className='font-workSans font-normal text-xs text-textSecondary-100 my-1'>Description</p>
-                                    <textarea name="description" id="" cols="30" rows="10" className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm resize-y' placeholder='Event description'>
+                                    <textarea name="description" id="" cols="30" rows="10" className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm resize-y' placeholder='Event description' onChange={(e)=>handleChange(e)} required>
                                     </textarea>
                                 </div>
                             </div>
                             <div className="event-links mt-6">
-                                <p className='text-textLight text-2xl font-semibold font-urbanist'>Pricing Details</p>
+                                <p className='text-textLight text-2xl font-semibold font-urbanist'>Event Links</p>
                                 <div className='pricing-input flex mt-4'>
                                     <div className='flex flex-col w-1/2'>
                                         <p className='font-workSans font-normal text-xs text-textSecondary-100 my-1'>Live VR streaming</p>
-                                        <input type="text" name='price' className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' placeholder='Live VR link' />
+                                        <input type="text" name='vrstreaminglink' className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' placeholder='Live VR link' onChange={(e)=>handleChange(e)} pattern='^(?:https?|ftp):\/\/[^\s\/$.?#].[^\s]*$'/>
                                     </div>
                                     <div className='flex flex-col ml-4 w-1/2'>
                                         <p className='font-workSans font-normal text-xs text-textSecondary-100 my-1'>Live streaming</p>
-                                        <input type="text" name='noofrelease' className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' placeholder='Live video link' />
+                                        <input type="text" name='streaminglink' className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' placeholder='Live video link' onChange={(e)=>handleChange(e)} pattern='^(?:https?|ftp):\/\/[^\s\/$.?#].[^\s]*$' required/>
                                     </div>
                                 </div>
                             </div>
