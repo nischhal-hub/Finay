@@ -5,14 +5,16 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { CiSearch } from "react-icons/ci";
 import { BiMessageRounded } from "react-icons/bi";
 import { MdNotificationsNone } from "react-icons/md";
+import { useGlobalContext } from '../context';
 
 
 const Navbar = () => {
+    const {setIsSidebarOpen} = useGlobalContext();
     return (
         <>
             <div className='flex h-20 border-b-[1px] border-borderColor w-full'>
                 <div className='flex items-center w-1/6'>
-                    <GiHamburgerMenu className='text-textLight m-6 w-9 h-6 cursor-pointer' />
+                    <GiHamburgerMenu className='text-textLight m-6 w-9 h-6 cursor-pointer' onClick={()=>(setIsSidebarOpen((v: boolean)=>!v))} />
                     <div className="icon my-4 mx-2">
                         <img src={icon} alt="icon" />
                     </div>

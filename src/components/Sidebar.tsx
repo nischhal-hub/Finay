@@ -1,17 +1,16 @@
 import React from 'react';
 import { sidebarLinks } from '../data/index';
-import { NavLink, NavLinkProps } from 'react-router-dom';
-import { cn } from '../utils';
+import { NavLink } from 'react-router-dom';
+import { useGlobalContext } from '../context';
 
-interface CustomNavLinkProps extends NavLinkProps {
-    activeClassName?: string;
-}
 
 const Sidebar = () => {
+    const {isSidebarOpen} = useGlobalContext();
     return (
         <>
             <div className='h-40 w-1/6 bg-accent rounded-full absolute blur-3xl opacity-20 bottom-10 -left-10'></div>
-            <div className='sidebar absolute left-0 w-52 h-auto bg-gradient-to-t from-sidebarBackground2 to-sidebarBackground'>
+            {isSidebarOpen && (
+                <div className='sidebar absolute left-0 w-52 h-auto bg-gradient-to-t from-sidebarBackground2 to-sidebarBackground'>
                 <div className='page-urls font-urbanist'>
                     <ul className='mx-6 border-b-[1px] border-searchInputBorder'>
                         {sidebarLinks[0].links.map((item, i) => (
@@ -49,6 +48,8 @@ const Sidebar = () => {
                     </ul>
                 </div>
             </div>
+            )}
+            
         </>
     );
 };
