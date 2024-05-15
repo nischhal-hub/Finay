@@ -28,8 +28,8 @@ export default {
       'sidebarBackground' : 'rgba(21, 21, 24, 1)',
       'sidebarBackground2' : 'rgba(45, 43, 56, 0)',
       'black':"#000000",
-      'verified':"#EA3B56"
-
+      'verified':"#EA3B56",
+      'error': "#cc0202"
     }
   },
   plugins: [],

@@ -1,22 +1,44 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, FC, useState } from 'react'
 import { IoIosArrowBack } from 'react-icons/io'
 import { MdVerified } from "react-icons/md";
 import { BiSolidImageAdd } from "react-icons/bi";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { SiPanasonic } from 'react-icons/si';
 
-const Profile = () => {
-    const [values, setValues] = useState({
-        "price": "",
-        "noofrelease": "",
-        "eventname": "",
-        "eventtype": "",
-        "eventdate": "",
-        "description": "",
-        "vrstreaminglink":"",
-        "streaminglink":""
-    })
-    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-        setValues({ ...values, [e.target.name]: e.target.value })
-        console.log(values)
+// "price": "",
+// "noofrelease": "",
+// "eventname": "",
+// "eventtype": "",
+// "eventdate": "",
+// "description": "",
+// "vrstreaminglink":"",
+// "streaminglink":""
+type EventType = "jazz" | "pop" | "rock" | "indie";
+type FormFields = {
+    price: number;
+    noofrelease: number;
+    eventname: string;
+    eventtype: EventType;
+    thumbnailPic : File;
+    eventdate: Date;
+    description: string;
+    vrstreaminglink: string;
+    streaminglink: string;
+}
+
+
+const Profile:FC = () => {
+    const [file, setFile] = useState<string>("");
+    const { register, handleSubmit, formState: { errors } } = useForm<FormFields>();
+    const onSubmit: SubmitHandler<FormFields> = (data) => {
+        console.log(data)
+    }
+    const handleChange = (e:any)=>{
+        console.log(e.target.files[0])
+        const selectedFile = e.target.files?.[0]
+        if(selectedFile){
+            setFile(URL.createObjectURL(selectedFile));
+        }
     }
     return (
         <div className='flex w-full'>
@@ -43,17 +65,35 @@ const Profile = () => {
                         <div className='h-5 w-5 rounded-full m-2 bg-textSecondary-100'></div>
                     </div>
                     <div className="form w-[80%] mt-6">
-                        <form>
+                        <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="pricing ">
                                 <p className='text-textLight text-2xl font-semibold font-urbanist'>Pricing Details</p>
                                 <div className='pricing-input flex mt-4'>
                                     <div className='flex flex-col w-1/2'>
                                         <p className='font-workSans font-normal text-xs text-textSecondary-100 my-1'>Choose Pricing</p>
-                                        <input type="number" pattern='\$\d+(?:\.\d{1,2})?' name='price' className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm required:border-accent required:border-[1px]' placeholder='$45.99' onChange={(e) => handleChange(e)} required/>
+                                        <input type="number" {...register('price', {
+                                            required: "Enter Price.",
+                                            validate: (value) => {
+                                                if (value < 0) {
+                                                    return "Enter price more than $0."
+                                                }
+                                                return true
+                                            }
+                                        })} className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm required:border-accent required:border-[1px]' placeholder='$45.99' />
+                                        {errors.price && <span className='text-sm text-error font-workSans mt-2'>{errors.price.message}</span>}
                                     </div>
                                     <div className='flex flex-col ml-4 w-1/2'>
                                         <p className='font-workSans font-normal text-xs text-textSecondary-100 my-1'>How many to release?</p>
-                                        <input type="number" name='noofrelease' className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' placeholder='@yukta.sh' onChange={(e) => handleChange(e)} pattern='\d+' required/>
+                                        <input type="number" {...register('noofrelease', {
+                                            required: "Enter no of releases.",
+                                            validate: (value) => {
+                                                if (value < 0) {
+                                                    return "Enter 1 or more."
+                                                }
+                                                return true
+                                            }
+                                        })} className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' placeholder='0' />
+                                        {errors.noofrelease && <span className='text-sm text-error font-workSans mt-2'>{errors.noofrelease.message}</span>}
                                     </div>
                                 </div>
                             </div>
@@ -63,8 +103,23 @@ const Profile = () => {
                                 <p className='font-workSans font-normal text-xs text-textLight'>PNG,GIF,WEBP Max=30MB.</p>
                                 <div className='w-[60%] relative'>
                                     <BiSolidImageAdd className='absolute top-0 left-0 bottom-0 right-0 m-auto w-full text-2xl text-textSecondary-200' />
-                                    <button className='bg-accent absolute top-7 right-4 font-workSans font-normal text-base rounded-[50px] px-2'>Upload</button>
-                                    <input type="photo" name='photo' className='w-full h-52 mt-3 rounded-md bg-formInput ' />
+                                    {/* <button className='bg-accent absolute top-7 right-4 font-workSans font-normal text-base rounded-[50px] px-2'>Upload</button> */}
+                                    <label htmlFor="file" className='bg-accent absolute top-7 right-4 font-workSans font-normal text-base rounded-[50px] px-2 cursor-pointer'>Upload</label>
+                                    <div className='w-full h-52 mt-4 bg-formInput rounded-md overflow-hidden'>
+                                        <img src={file}  className='w-full object-cover' />
+                                    <div className='w-[0.1px] opacity-0 overflow-hidden'>
+                                        <input type="file"  id='file' {...register("thumbnailPic",{
+                                            onChange: (e)=>(handleChange(e)),
+                                            required:"Add a thumbnail.",
+                                            validate : (value)=>{
+                                                
+                                                if( value[0].size > 76000)
+                                                return "Select image file less than 78KB";
+                                            }
+                                        })} />
+                                    </div>
+                                    </div>
+                                        {errors.thumbnailPic && <span className='text-sm text-error font-workSans mt-2 z-60'>{errors.thumbnailPic.message}</span>}
                                 </div>
                             </div>
                             <div className="event details mt-6">
@@ -72,27 +127,49 @@ const Profile = () => {
                                 <div className='pricing-input flex mt-4'>
                                     <div className='flex flex-col w-1/2'>
                                         <p className='font-workSans font-normal text-xs text-textSecondary-100 my-1'>Event name</p>
-                                        <input type="text" name='eventname' className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' placeholder='Album name' onChange={(e) => handleChange(e)} pattern='[A-Za-z0-9\s\-_]+' required/>
+                                        <input type="text" className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' {...register('eventname', {
+                                            required: "Enter Event/album name."
+                                        })} placeholder='Album name' />
+                                        {errors.eventname && <span className='text-sm text-error font-workSans mt-2'>{errors.eventname.message}</span>}
                                     </div>
                                     <div className='flex flex-col ml-4 w-1/2'>
                                         <p className='font-workSans font-normal text-xs text-textSecondary-100 my-1'>Event type</p>
                                         {/* <input type="text" name='eventtype' className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' placeholder='Jazz' /> */}
-                                        <select name="eventtype" className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' onChange={(e)=>handleChange(e)} required>
+                                        <select defaultValue=""  className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' {...register('eventtype', {
+                                            required: "Select a option.",
+                                        })}>
                                             <option value="" disabled>Choose event type</option>
                                             <option value="jazz">Jazz</option>
                                             <option value="pop">Pop</option>
                                             <option value="rock">Rock</option>
                                             <option value="indie">Indie</option>
                                         </select>
+                                        {errors.eventtype && <span className='text-sm text-error font-workSans mt-2'>{errors.eventtype.message}</span>}
                                     </div>
                                 </div>
                                 <div className='flex flex-col  w-full'>
                                     <p className='font-workSans font-normal text-xs text-textSecondary-100 my-1'>Event date</p>
-                                    <input type="date" name='eventdate' className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' onChange={(e)=>handleChange(e)} required/>
+                                    <input type="date" {...register('eventdate', {
+                                        required: "Enter a date.",
+                                        validate: (value) => {
+                                            let today = new Date();
+                                            let selectedDate = new Date(value);
+                                            today.setHours(0, 0, 0, 0);
+                                            selectedDate.setHours(0, 0, 0, 0);
+
+                                            if (selectedDate >= today) {
+                                                return true;
+                                            } else {
+                                                return "Please select another date.";
+                                            }
+                                        }
+
+                                    })} className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' />
+                                    {errors.eventdate && <span className='text-sm text-error font-workSans mt-2'>{errors.eventdate.message}</span>}
                                 </div>
                                 <div className='flex flex-col w-full'>
                                     <p className='font-workSans font-normal text-xs text-textSecondary-100 my-1'>Description</p>
-                                    <textarea name="description" id="" cols="30" rows="10" className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm resize-y' placeholder='Event description' onChange={(e)=>handleChange(e)} required>
+                                    <textarea {...register('description')} id="" cols="30" rows="10" className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm resize-y' placeholder='Event description' >
                                     </textarea>
                                 </div>
                             </div>
@@ -101,11 +178,24 @@ const Profile = () => {
                                 <div className='pricing-input flex mt-4'>
                                     <div className='flex flex-col w-1/2'>
                                         <p className='font-workSans font-normal text-xs text-textSecondary-100 my-1'>Live VR streaming</p>
-                                        <input type="text" name='vrstreaminglink' className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' placeholder='Live VR link' onChange={(e)=>handleChange(e)} pattern='^(?:https?|ftp):\/\/[^\s\/$.?#].[^\s]*$'/>
+                                        <input type="text" className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' placeholder='Live VR link' {...register("vrstreaminglink", {
+                                            pattern: {
+                                                value: /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
+                                                message: "Invalid link address"
+                                            }
+                                        })} />
                                     </div>
                                     <div className='flex flex-col ml-4 w-1/2'>
                                         <p className='font-workSans font-normal text-xs text-textSecondary-100 my-1'>Live streaming</p>
-                                        <input type="text" name='streaminglink' className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' placeholder='Live video link' onChange={(e)=>handleChange(e)} pattern='^(?:https?|ftp):\/\/[^\s\/$.?#].[^\s]*$' required/>
+                                        <input type="text" {...register("streaminglink", {
+                                            required: "Streaming link required.",
+                                            pattern: {
+                                                value: /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
+                                                message: "Invalid link address"
+                                            }
+                                        })} className='bg-formInput border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' placeholder='Live video link' />
+                                    {errors.streaminglink && <span className='text-sm text-error font-workSans mt-2'>{errors.streaminglink.message}</span>}
+
                                     </div>
                                 </div>
                             </div>
